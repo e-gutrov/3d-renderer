@@ -23,6 +23,5 @@ private:
     std::vector<Triangle4D> Clip() const;
     std::vector<Triangle4D> ToCube(const std::vector<Triangle4D>&) const;
     void DrawTriangle(const Triangle4D& triangle, Screen& screen) const;
-    int MapIntRange(double x, int range) const;
 };
 #endif //INC_3D_RENDERER_RENDERER_H

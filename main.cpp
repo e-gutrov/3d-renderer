@@ -7,11 +7,13 @@
 int main() {
 //    const int W = 640, H = 480;
     Renderer r(nullptr, Camera());
-
     auto screen = r.Render();
     sf::RenderWindow window(sf::VideoMode(screen.GetWidth(), screen.GetHeight()), "Test");
-    std::cout << screen.GetWidth() << ' ' << screen.GetHeight() << ' ' << screen.GetColors().size() << '\n';
+    sf::Clock clock;
+    float lastTime = 0;
     while (window.isOpen()) {
+        screen = r.Render();
+        std::cout << "rendered" << '\n';
         sf::Event event;
         while (window.pollEvent(event))
         {
@@ -26,7 +28,7 @@ int main() {
         texture.create(screen.GetWidth(), screen.GetHeight());
 
         sf::Sprite sprite(texture);
-        for (int i = 0; i < 640 * 480; ++i) {
+        for (int i = 0; i < screen.GetWidth() * screen.GetHeight(); ++i) {
             pixels[4 * i] = screen.GetColors()[i].r;
             pixels[4 * i + 1] = screen.GetColors()[i].g;
             pixels[4 * i + 2] = screen.GetColors()[i].b;
@@ -38,6 +40,10 @@ int main() {
         window.draw(sprite);
 
         window.display();
+        float currentTime = clock.getElapsedTime().asSeconds();
+        float fps = 1.f / (currentTime - lastTime);
+        std::cout << fps << '\n';
+        lastTime = currentTime;
     }
     return 0;
 }

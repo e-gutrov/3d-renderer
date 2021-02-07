@@ -27,3 +27,8 @@ int Screen::GetWidth() const { return width_; }
 int Screen::GetHeight() const { return height_; }
 
 const std::vector<Color>& Screen::GetColors() const { return colors_; }
+
+Point2D Screen::GetCoors(double x, double y) const {
+    return {static_cast<int>(round((x + 1) / 2 * width_)),
+            static_cast<int>(round((y + 1) / 2 * height_))};
+}

@@ -1,13 +1,16 @@
 //
 // Created by egor on 07.02.2021.
 //
+#include <iostream>
 #include <Core>
 #include "renderer.h"
+#include "primitives.h"
+#include "flat_primitives.h"
 
 Renderer::Renderer(World* world, const Camera& camera): world_(world), camera_(camera) {}
 
 Screen Renderer::Render() const {
-    const int W = 640, H = 480;
+    const int W = 1920, H = 1080;
     Screen result(W, H);
     auto triangles = Clip();
     triangles = ToCube(triangles);
@@ -23,8 +26,15 @@ std::vector<Triangle4D> Renderer::Clip() const {
         Triangle4D(
                 Eigen::Vector4d(-1, -1, -1, 1),
                 Eigen::Vector4d(1, -1, -1, 1),
-                Eigen::Vector4d(1, 1, -1, 1)
+                Eigen::Vector4d(1, 1, -1, 1),
+                {0, 0, 0, 255}
         ),
+//            Triangle4D(
+//                    Eigen::Vector4d(0, 0, -1, 1),
+//                    Eigen::Vector4d(0.5, 0.5, -1, 1),
+//                    Eigen::Vector4d(-0.5, 0.5, -1, 1),
+//                    {0, 0, 0, 255}
+//            ),
     };
 }
 
@@ -32,26 +42,16 @@ std::vector<Triangle4D> Renderer::ToCube(const std::vector<Triangle4D>& triangle
     return triangles;
 }
 
-int Renderer::MapIntRange(double x, int range) const {
-    return static_cast<int>(round((x + 1) / 2 * range));
-}
-
-int Renderer::MapDoubleRange(int x, int range) const {
-
-}
-
 void Renderer::DrawTriangle(const Triangle4D &triangle, Screen& screen) const {
-    auto box = triangle.BoundingBox();
+    Triangle2D screen_triangle(triangle, screen);
+    auto box = screen_triangle.BoundingBox();
 
-    int min_x = MapIntRange(box.first.x(), screen.GetWidth());
-    int max_x = MapIntRange(box.second.x(), screen.GetWidth());
-    int min_y = MapIntRange(box.first.y(), screen.GetHeight());
-    int max_y = MapIntRange(box.second.y(), screen.GetHeight());
-
-    for (int x = min_x; x <= max_x; ++x) {
-        for (int y = min_y; y <= max_y; ++y) {
-            if (triangle.TestPoint(MapDoubleRange(x, screen.GetWidth()), MapDoubleRange(y, screen.GetHeight()))) {
-
+    box.second.x = std::min(box.second.x, screen.GetWidth() - 1);
+    box.second.y = std::min(box.second.y, screen.GetHeight() - 1);
+    for (int y = box.first.y; y <= box.second.y; ++y) {
+        for (int x = box.first.x; x <= box.second.x; ++x) {
+            if (screen_triangle.TestPixel({x, y})) {
+                screen.SetPixel(y, x, -2, triangle.color);
             }
         }
     }

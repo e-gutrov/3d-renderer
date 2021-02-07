@@ -8,6 +8,7 @@
 #include <vector>
 #include <Core>
 #include "primitives.h"
+#include "flat_primitives.h"
 
 class Screen {
 public:
@@ -17,12 +18,12 @@ public:
     int GetWidth() const;
     int GetHeight() const;
     const std::vector<Color>& GetColors() const;
+    Point2D GetCoors(double x, double y) const;
 
 private:
     constexpr const static double Z_INF = 2;
     int width_, height_;
     std::vector<Color> colors_;
     std::vector<double> z_;
-
 };
 #endif //INC_3D_RENDERER_SCREEN_H
