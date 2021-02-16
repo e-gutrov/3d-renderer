@@ -6,7 +6,7 @@
 Screen::Screen(int width, int height)
     : width_(width), height_(height)
     , colors_(width_ * height_)
-    , z_(width_ * height_) {}
+    , z_(width_ * height_, Z_INF) {}
 
 void Screen::Clear() {
     for (auto & elem : z_) {

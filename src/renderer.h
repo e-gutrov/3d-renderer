@@ -14,13 +14,15 @@ class Renderer {
 public:
     Renderer(World* world, const Camera& camera);
     Screen Render() const;
+    Camera& GetCamera();
 
 private:
     // world
     World* world_;
     Camera camera_;
 
-    std::vector<Triangle4D> Clip() const;
+    std::vector<Triangle4D> ToCameraSpace() const;
+    std::vector<Triangle4D> Clip(const std::vector<Triangle4D>&) const;
     std::vector<Triangle4D> ToCube(const std::vector<Triangle4D>&) const;
     void DrawTriangle(const Triangle4D& triangle, Screen& screen) const;
 };

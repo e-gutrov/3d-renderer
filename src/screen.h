@@ -21,7 +21,7 @@ public:
     Point2D GetCoors(double x, double y) const;
 
 private:
-    constexpr const static double Z_INF = 2;
+    constexpr const static double Z_INF = 3000;
     int width_, height_;
     std::vector<Color> colors_;
     std::vector<double> z_;

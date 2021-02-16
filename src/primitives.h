@@ -8,7 +8,7 @@
 #include <Core>
 
 struct Color {
-    int r = 240, g = 0, b = 0, a = 255;
+    int r = 0, g = 0, b = 0, a = 255;
 };
 
 struct Triangle4D {
