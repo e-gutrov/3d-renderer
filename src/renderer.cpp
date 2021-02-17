@@ -18,7 +18,7 @@ Screen Renderer::Render() const {
     Screen result(W, H);
     auto triangles = ToCameraSpace();
     triangles = Clip(triangles);
-    triangles = ToCube(triangles);
+    triangles = ToCube(triangles, 1, -1, 1, -1, 1);
 
     for (const auto & triangle : triangles) {
         DrawTriangle(triangle, result);
@@ -45,7 +45,17 @@ std::vector<Triangle4D> Renderer::Clip(const std::vector<Triangle4D>& triangles)
     return triangles;
 }
 
-std::vector<Triangle4D> Renderer::ToCube(const std::vector<Triangle4D>& triangles) const {
+std::vector<Triangle4D> Renderer::ToCube(std::vector<Triangle4D>& triangles, double n, double l, double r, double b, double t) const {
+    Eigen::Matrix4d trans = Eigen::Matrix4d::Identity();
+    trans << 2 * n / (r - l), 0, (r + l) / (r - l), 0,
+            0, 2 * n / (t - b), (t + b) / (t - b), 0,
+            0, 0, -1, -2 * n,
+            0, 0, -1, 0;
+    for (auto & triangle : triangles) {
+        for (auto & pt : triangle.pts) {
+            pt = trans * pt;
+        }
+    }
     return triangles;
 }
 

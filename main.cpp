@@ -31,45 +31,75 @@ int main() {
     // end of three flat triangles
     */
 
+//    world.AddObject(
+//            Triangle4D(
+//                    Eigen::Vector4d(-0.5, -0.5, 0.5, 1),
+//                    Eigen::Vector4d(0.5, -0.5, 0.5, 1),
+//                    Eigen::Vector4d(0, 0.5, 0.5, 1),
+//                    {200, 0, 0, 255}
+//    ));
+//    world.AddObject(
+//            Triangle4D(
+//                    Eigen::Vector4d(0.5, -0.5, 0.5, 1),
+//                    Eigen::Vector4d(0.5, -0.5, -0.5, 1),
+//                    Eigen::Vector4d(0.5, 0.5, 0, 1),
+//                    {0, 200, 0, 255}
+//    ));
+//    world.AddObject(
+//            Triangle4D(
+//                    Eigen::Vector4d(-0.5, -0.5, -0.5, 1),
+//                    Eigen::Vector4d(0.5, -0.5, -0.5, 1),
+//                    Eigen::Vector4d(0, 0.5, -0.5, 1),
+//                    {0, 0, 200, 255}
+//    ));
+//    world.AddObject(
+//            Triangle4D(
+//                    Eigen::Vector4d(-0.5, -0.5, 0.5, 1),
+//                    Eigen::Vector4d(-0.5, -0.5, -0.5, 1),
+//                    Eigen::Vector4d(-0.5, 0.5, 0, 1),
+//                    {0, 200, 200, 255}
+//    ));
+
+    // testing projective
     world.AddObject(
             Triangle4D(
-                    Eigen::Vector4d(-0.5, -0.5, 0.5, 1),
-                    Eigen::Vector4d(0.5, -0.5, 0.5, 1),
-                    Eigen::Vector4d(0, 0.5, 0.5, 1),
+                    Eigen::Vector4d(5, 0, -5, 1),
+                    Eigen::Vector4d(7, 0, -5, 1),
+                    Eigen::Vector4d(6, 1, -5, 1),
                     {200, 0, 0, 255}
     ));
     world.AddObject(
             Triangle4D(
-                    Eigen::Vector4d(0.5, -0.5, 0.5, 1),
-                    Eigen::Vector4d(0.5, -0.5, -0.5, 1),
-                    Eigen::Vector4d(0.5, 0.5, 0, 1),
+                    Eigen::Vector4d(5, 0, -7, 1),
+                    Eigen::Vector4d(7, 0, -7, 1),
+                    Eigen::Vector4d(6, 1, -7, 1),
+                    {200, 200, 0, 255}
+            ));
+    world.AddObject(
+            Triangle4D(
+                    Eigen::Vector4d(5, 0, -5, 1),
+                    Eigen::Vector4d(5, 0, -7, 1),
+                    Eigen::Vector4d(5, 1, -6, 1),
+                    {0, 0, 200, 255}
+            ));
+    world.AddObject(
+            Triangle4D(
+                    Eigen::Vector4d(7, 0, -5, 1),
+                    Eigen::Vector4d(7, 0, -7, 1),
+                    Eigen::Vector4d(7, 1, -6, 1),
                     {0, 200, 0, 255}
     ));
-    world.AddObject(
-            Triangle4D(
-                    Eigen::Vector4d(-0.5, -0.5, -0.5, 1),
-                    Eigen::Vector4d(0.5, -0.5, -0.5, 1),
-                    Eigen::Vector4d(0, 0.5, -0.5, 1),
-                    {0, 0, 200, 255}
-    ));
-    world.AddObject(
-            Triangle4D(
-                    Eigen::Vector4d(-0.5, -0.5, 0.5, 1),
-                    Eigen::Vector4d(-0.5, -0.5, -0.5, 1),
-                    Eigen::Vector4d(-0.5, 0.5, 0, 1),
-                    {0, 200, 200, 255}
-    ));
-
     Renderer r(&world, Camera());
 
     auto screen = r.Render();
     sf::RenderWindow window(sf::VideoMode(screen.GetWidth(), screen.GetHeight()), "Test");
     sf::Clock clock;
     float lastTime = 0;
+    r.GetCamera().SetPos(Eigen::Vector3d(6, 0, 0));
     while (window.isOpen()) {
-//        r.GetCamera().Shift(Eigen::Vector3d(0.01, 0.01, 0));
-        r.GetCamera().Rotate(Eigen::Vector3d(0, 0.1, 0));
         screen = r.Render();
+        r.GetCamera().Shift(Eigen::Vector3d(-6.0 / 100, 0, -6.0 / 100));
+        r.GetCamera().Rotate(Eigen::Vector3d(0, 1.57 / 100, 0));
         std::cout << "rendered" << '\n';
         sf::Event event;
         while (window.pollEvent(event))
