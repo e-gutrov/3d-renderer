@@ -18,5 +18,16 @@ struct Triangle4D {
     Triangle4D(const Eigen::Vector4d& a, const Eigen::Vector4d&  b, const Eigen::Vector4d& c, Color col);
 };
 
+struct Plane {
+    Eigen::Vector3d norm;
+    double d;
+
+    explicit Plane(Eigen::Vector3d norm, double d = 0);
+    Plane(Triangle4D tr);
+
+    double GetZ(double x, double y) const;
+    int DistSign(Eigen::Vector4d pt) const;
+    Eigen::Vector4d Intersect() const;
+};
 
 #endif //INC_3D_RENDERER_PRIMITIVES_H
