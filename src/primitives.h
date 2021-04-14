@@ -18,16 +18,22 @@ struct Triangle4D {
     Triangle4D(const Eigen::Vector4d& a, const Eigen::Vector4d&  b, const Eigen::Vector4d& c, Color col);
 };
 
-struct Plane {
-    Eigen::Vector3d norm;
-    double d;
+struct Line {
+    Eigen::Vector3d dir = {1, 0, 0}, point = {0, 0, 0};
 
-    explicit Plane(Eigen::Vector3d norm, double d = 0);
-    Plane(Triangle4D tr);
+    Line() = default;
+    Line(const Eigen::Vector3d& a, const Eigen::Vector3d& b);
+    Line(const Eigen::Vector4d& a, const Eigen::Vector4d& b);
+};
+
+struct Plane {
+    Eigen::Vector3d norm, point;
+
+    explicit Plane(Triangle4D tr);
 
     double GetZ(double x, double y) const;
-    int DistSign(Eigen::Vector4d pt) const;
-    Eigen::Vector4d Intersect() const;
+    double Dist(const Eigen::Vector3d& pt) const;
+    Eigen::Vector3d Intersect(const Line& l) const;
 };
 
 #endif //INC_3D_RENDERER_PRIMITIVES_H

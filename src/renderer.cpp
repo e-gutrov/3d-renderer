@@ -14,7 +14,7 @@ Camera& Renderer::GetCamera() {
 }
 
 Screen Renderer::Render() const {
-    const int W = 1920, H = 1080;
+    const int W = 640, H = 480;
     Screen result(W, H);
     auto triangles = ToCameraSpace();
     triangles = Clip(triangles);
@@ -22,10 +22,6 @@ Screen Renderer::Render() const {
 
     for (const auto & triangle : triangles) {
         DrawTriangle(triangle, result);
-//        std::cout << "Triangle:\n";
-//        for (auto pt : triangle.pts) {
-//            std::cout << pt << '\n';
-//        }
     }
     return result;
 }
@@ -42,7 +38,51 @@ std::vector<Triangle4D> Renderer::ToCameraSpace() const {
 }
 
 std::vector<Triangle4D> Renderer::Clip(const std::vector<Triangle4D>& triangles) const {
-    return triangles;
+    std::vector<Triangle4D> result;
+    std::vector<Plane> planes;
+    for (const auto & tr : triangles) {
+        std::vector<Triangle4D> cur = {tr}, next;
+
+        for (const auto & plane : planes) {
+            for (const auto & triangle : cur) {
+                next.emplace_back(triangle);
+//                std::vector<int> pos, neg;
+//                for (int i = 0; i < 3; ++i) {
+//                    double dist = plane.Dist(triangle.pts[i] / triangle.pts[i].w());
+//                    if (dist < 0) {
+//                        neg.emplace_back(i);
+//                    } else {
+//                        pos.emplace_back(i);
+//                    }
+//                }
+//                if (pos.empty()) continue;      // triangle is fully clipped
+//                if (neg.empty()) {              // triangle is fully in
+//                    next.push_back(triangle);
+//                }
+//                Line l1, l2;
+//                if (pos.size() == 2) {
+//                    l1 = Line(triangle.pts[pos[0]], triangle.pts[neg[0]]);
+//                    l2 = Line(triangle.pts[pos[1]], triangle.pts[neg[0]]);
+//                } else {
+//                    l1 = Line(triangle.pts[pos[0]], triangle.pts[neg[0]]);
+//                    l2 = Line(triangle.pts[pos[0]], triangle.pts[neg[1]]);
+//                }
+//                std::vector<Eigen::Vector3d> planePts{plane.Intersect(l1), plane.Intersect(l2)};
+//                if (pos.size() == 2) {
+////                    next.emplace_back();
+////                    next.emplace_back();
+//                } else {
+////                    next.emplace_back(triangle.pts[pos[0]], planePts[0], planePts[1]);
+//                }
+            }
+            cur = next;
+            next.clear();
+        }
+        for (const auto & triangle : cur) {
+            result.push_back(triangle);
+        }
+    }
+    return result;
 }
 
 std::vector<Triangle4D> Renderer::ToCube(std::vector<Triangle4D>& triangles, double n, double l, double r, double b, double t) const {
@@ -52,10 +92,10 @@ std::vector<Triangle4D> Renderer::ToCube(std::vector<Triangle4D>& triangles, dou
             0, 0, -1, -2 * n,
             0, 0, -1, 0;
     for (auto & triangle : triangles) {
-        std::cout << "Triangle\n";
+//        std::cout << "Triangle\n";
         for (auto & pt : triangle.pts) {
             pt = trans * pt;
-            std::cout << pt.transpose() / pt.w() << '\n';
+//            std::cout << pt.transpose() / pt.w() << '\n';
         }
     }
     return triangles;
