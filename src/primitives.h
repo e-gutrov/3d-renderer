@@ -16,6 +16,7 @@ struct Triangle4D {
     Color color;
 
     Triangle4D(const Eigen::Vector4d& a, const Eigen::Vector4d&  b, const Eigen::Vector4d& c, Color col);
+    Eigen::Vector3d GetNorm() const;
 };
 
 struct Line {
@@ -29,6 +30,7 @@ struct Line {
 struct Plane {
     Eigen::Vector3d norm, point;
 
+    explicit Plane(Eigen::Vector3d norm_, Eigen::Vector3d point_ = Eigen::Vector3d(0, 0, 0));
     explicit Plane(Triangle4D tr);
 
     double GetZ(double x, double y) const;

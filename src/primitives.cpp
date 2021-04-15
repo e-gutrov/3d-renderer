@@ -11,6 +11,15 @@ Triangle4D::Triangle4D(const Eigen::Vector4d& a, const Eigen::Vector4d& b, const
     pts[0] = a;
     pts[1] = b;
     pts[2] = c;
+    for (int i = 0; i < 3; ++i) {
+        pts[i] /= pts[i].w();
+    }
+}
+
+Eigen::Vector3d Triangle4D::GetNorm() const {
+    Eigen::Vector3d v1 = (pts[1] - pts[0]).head(3);
+    Eigen::Vector3d v2 = (pts[2] - pts[1]).head(3);
+    return v1.cross(v2);
 }
 
 Line::Line(const Eigen::Vector3d& a, const Eigen::Vector3d& b)
@@ -30,13 +39,16 @@ Plane::Plane(Triangle4D tr) {
     point = tr.pts[0].head(3);
 }
 
+Plane::Plane(Eigen::Vector3d norm_, Eigen::Vector3d point_) : norm(norm_), point(point_) {}
+
 double Plane::GetZ(double x, double y) const {
     double d = -norm.dot(point);
     return (-norm.x() * x - norm.y() * y - d) / norm.z();
 }
 
 Eigen::Vector3d Plane::Intersect(const Line& l) const {
-
+    double t = -(norm.dot(l.point) - norm.dot(point)) / norm.dot(l.dir);
+    return l.point + t * l.dir;
 }
 
 double Plane::Dist(const Eigen::Vector3d& pt) const {
