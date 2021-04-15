@@ -9,7 +9,7 @@
 
 using namespace Eigen;
 
-Camera::Camera(): Transform_(Matrix4d::Identity()) {}
+Camera::Camera(double E, double N): E_(E), N_(N), Transform_(Matrix4d::Identity()) {}
 
 void Camera::Rotate(const Vector3d& rotation) {
     Matrix3d rotationMatrix = (AngleAxisd(rotation.z(), Vector3d(0, 0, 1))
@@ -28,4 +28,12 @@ void Camera::Shift(const Vector3d& shift) {
 
 Matrix4d Camera::GetMatrix() const {
     return Transform_;
+}
+
+double Camera::GetE() const {
+    return E_;
+}
+
+double Camera::GetN() const {
+    return N_;
 }
