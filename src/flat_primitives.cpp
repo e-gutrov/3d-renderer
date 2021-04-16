@@ -16,7 +16,7 @@ Triangle2D::Triangle2D(const Point2D& a, const Point2D& b, const Point2D& c) {
     pts[2] = c;
 }
 
-Triangle2D::Triangle2D(const Triangle4D& triangle, const Screen& screen) {
+Triangle2D::Triangle2D(const Triangle4d& triangle, const Screen& screen) {
     for (int i = 0; i < 3; ++i) {
         pts[i] = Point2D(
                 screen.GetCoors(triangle.pts[i].x() / triangle.pts[i].w(),

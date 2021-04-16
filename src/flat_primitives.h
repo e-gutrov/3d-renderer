@@ -22,7 +22,7 @@ class Screen;
 struct Triangle2D {
     Point2D pts[3];
     Triangle2D(const Point2D& a, const Point2D& b, const Point2D& c);
-    Triangle2D(const Triangle4D& triangle, const Screen& screen);
+    Triangle2D(const Triangle4d& triangle, const Screen& screen);
     bool TestPixel(Point2D pixel) const;
     std::pair<Point2D, Point2D> BoundingBox() const;
 };

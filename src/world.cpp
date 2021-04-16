@@ -4,10 +4,10 @@
 
 #include "world.h"
 
-void World::AddObject(const Triangle4D& tr) {
-    objects_.push_back(tr);
+void World::AddObject(const Triangle4d& tr) {
+    Objects_.push_back(tr);
 }
 
-const std::vector<Triangle4D>& World::GetObjects() const {
-    return objects_;
+const std::vector<Triangle4d>& World::GetObjects() const {
+    return Objects_;
 }

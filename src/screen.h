@@ -22,8 +22,8 @@ public:
 
 private:
     constexpr const static double Z_INF = 3000;
-    int width_, height_;
-    std::vector<Color> colors_;
-    std::vector<double> z_;
+    int Width_, Height_;
+    std::vector<Color> Colors_;
+    std::vector<double> Z_;
 };
 #endif //INC_3D_RENDERER_SCREEN_H

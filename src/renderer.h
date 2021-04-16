@@ -13,14 +13,14 @@
 class Renderer {
 public:
     explicit Renderer(World* world);
-    Screen Render(int W, int H, const Camera&) const;
+    Screen Render(int w, int h, const Camera&) const;
 
 private:
-    World* world_;
+    World* World_;
 
-    std::vector<Triangle4D> ToCameraSpace(const Camera& camera) const;
-    std::vector<Triangle4D> Clip(const std::vector<Triangle4D>&, const Camera&, double) const;
-    std::vector<Triangle4D> ToCube(std::vector<Triangle4D>&, const Camera&, double) const;
-    void DrawTriangle(const Triangle4D& triangle, Screen* screen) const;
+    std::vector<Triangle4d> ToCameraSpace(const Camera& camera) const;
+    std::vector<Triangle4d> Clip(const std::vector<Triangle4d>&, const Camera&, double) const;
+    std::vector<Triangle4d> ToCube(std::vector<Triangle4d>&, const Camera&, double) const;
+    void DrawTriangle(const Triangle4d& triangle, Screen* screen) const;
 };
 #endif //INC_3D_RENDERER_RENDERER_H

@@ -10,10 +10,10 @@
 
 class World {
 public:
-    void AddObject(const Triangle4D& tr);
-    const std::vector<Triangle4D>& GetObjects() const;
+    void AddObject(const Triangle4d& tr);
+    const std::vector<Triangle4d>& GetObjects() const;
 private:
-    std::vector<Triangle4D> objects_;
+    std::vector<Triangle4d> Objects_;
 };
 
 #endif //INC_3D_RENDERER_WORLD_H

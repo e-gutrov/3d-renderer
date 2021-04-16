@@ -9,13 +9,13 @@
 
 using namespace Eigen;
 
-Renderer::Renderer(World* world): world_(world) {}
+Renderer::Renderer(World* world): World_(world) {}
 
-Screen Renderer::Render(int W, int H, const Camera& camera) const {
-    Screen result(W, H);
+Screen Renderer::Render(int w, int h, const Camera& camera) const {
+    Screen result(w, h);
     auto triangles = ToCameraSpace(camera);
-    triangles = Clip(triangles, camera, (double)H / W);
-    triangles = ToCube(triangles, camera, (double)H / W);
+    triangles = Clip(triangles, camera, (double)h / w);
+    triangles = ToCube(triangles, camera, (double)h / w);
 
     for (const auto & triangle : triangles) {
         DrawTriangle(triangle, &result);
@@ -23,8 +23,8 @@ Screen Renderer::Render(int W, int H, const Camera& camera) const {
     return result;
 }
 
-std::vector<Triangle4D> Renderer::ToCameraSpace(const Camera& camera) const {
-    auto result = world_->GetObjects();
+std::vector<Triangle4d> Renderer::ToCameraSpace(const Camera& camera) const {
+    auto result = World_->GetObjects();
     auto trans = camera.GetMatrix();
     for (auto & triangle : result) {
         for (auto & pt : triangle.pts) {
@@ -34,8 +34,8 @@ std::vector<Triangle4D> Renderer::ToCameraSpace(const Camera& camera) const {
     return result;
 }
 
-std::vector<Triangle4D> Renderer::Clip(const std::vector<Triangle4D>& triangles, const Camera& camera, double aspect_ratio) const {
-    std::vector<Triangle4D> result;
+std::vector<Triangle4d> Renderer::Clip(const std::vector<Triangle4d>& triangles, const Camera& camera, double aspect_ratio) const {
+    std::vector<Triangle4d> result;
     double n = camera.GetN(), e = camera.GetE();
     std::vector<Plane> planes = {
             Plane(Vector3d(0, 0, -1), Vector3d(0, 0, n)),                    // near
@@ -51,7 +51,7 @@ std::vector<Triangle4D> Renderer::Clip(const std::vector<Triangle4D>& triangles,
                     -aspect_ratio / sqrt(e * e + aspect_ratio * aspect_ratio))),                     // top
     };
     for (const auto & tr : triangles) {
-        std::vector<Eigen::Vector4d> cur = {tr.pts[0], tr.pts[1], tr.pts[2]}, next;
+        std::vector<Vector4d> cur = {tr.pts[0], tr.pts[1], tr.pts[2]}, next;
         for (const auto & plane : planes) {
             for (int i = 0; i < cur.size(); ++i) {
                 const auto& p0 = cur[i], p1 = cur[(i + 1) % cur.size()];
@@ -62,7 +62,7 @@ std::vector<Triangle4D> Renderer::Clip(const std::vector<Triangle4D>& triangles,
                     next.emplace_back(p0);
                 }
                 if ((d0 >= 0 && d1 < 0) || (d0 < 0 && d1 > 0)) {
-                    Eigen::Vector4d pt;
+                    Vector4d pt;
                     pt.w() = 1;
                     pt.block<3, 1>(0, 0) = plane.Intersect(Line(p0, p1));
                     next.emplace_back(pt);
@@ -78,11 +78,11 @@ std::vector<Triangle4D> Renderer::Clip(const std::vector<Triangle4D>& triangles,
     return result;
 }
 
-std::vector<Triangle4D> Renderer::ToCube(std::vector<Triangle4D>& triangles, const Camera& camera, double aspect_ratio) const {
+std::vector<Triangle4d> Renderer::ToCube(std::vector<Triangle4d>& triangles, const Camera& camera, double aspect_ratio) const {
     double n = camera.GetN(), e = camera.GetN();
     double l = -n / e, r = n / e;
     double b = -aspect_ratio * n / e, t = aspect_ratio * n / e;
-    Eigen::Matrix4d trans;
+    Matrix4d trans;
     trans << 2 * n / (r - l), 0, (r + l) / (r - l), 0,
             0, 2 * n / (t - b), (t + b) / (t - b), 0,
             0, 0, -1, -2 * n,
@@ -95,7 +95,7 @@ std::vector<Triangle4D> Renderer::ToCube(std::vector<Triangle4D>& triangles, con
     return triangles;
 }
 
-void Renderer::DrawTriangle(const Triangle4D& triangle, Screen* screen) const {
+void Renderer::DrawTriangle(const Triangle4d& triangle, Screen* screen) const {
     Triangle2D screen_triangle(triangle, *screen);
     auto box = screen_triangle.BoundingBox();
 
