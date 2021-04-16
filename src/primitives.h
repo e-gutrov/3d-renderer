@@ -15,7 +15,8 @@ struct Triangle4d {
     Eigen::Vector4d pts[3];
     Color color;
 
-    Triangle4d(const Eigen::Vector4d& a, const Eigen::Vector4d&  b, const Eigen::Vector4d& c, Color col);
+    Triangle4d(const Eigen::Vector3d& a, const Eigen::Vector3d&  b, const Eigen::Vector3d& c, Color col = Color());
+    Triangle4d(const Eigen::Vector4d& a, const Eigen::Vector4d&  b, const Eigen::Vector4d& c, Color col = Color());
     Eigen::Vector3d GetNorm() const;
 };
 

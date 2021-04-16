@@ -8,6 +8,16 @@
 
 using namespace Eigen;
 
+Triangle4d::Triangle4d(const Vector3d& a, const Vector3d& b, const Vector3d& c, Color col)
+    : color(col) {
+    pts[0].block<3, 1>(0, 0) = a;
+    pts[1].block<3, 1>(0, 0) = b;
+    pts[2].block<3, 1>(0, 0) = c;
+    for (auto & pt : pts) {
+        pt.w() = 1;
+    }
+}
+
 Triangle4d::Triangle4d(const Vector4d& a, const Vector4d& b, const Vector4d& c, Color col)
     : color(col) {
     pts[0] = a;
