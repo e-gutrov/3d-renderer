@@ -1,7 +1,3 @@
-//
-// Created by egor on 07.02.2021.
-//
-
 #ifndef INC_3D_RENDERER_RENDERER_H
 #define INC_3D_RENDERER_RENDERER_H
 
@@ -13,7 +9,7 @@
 class Renderer {
 public:
     explicit Renderer(World* world);
-    Screen Render(int w, int h, const Camera&) const;
+    void Render(const Camera& camera, Screen* screen) const;
 
 private:
     World* World_;

@@ -1,6 +1,3 @@
-//
-// Created by egor on 07.02.2021.
-//
 #include "screen.h"
 
 Screen::Screen(int width, int height)
@@ -10,6 +7,7 @@ Screen::Screen(int width, int height)
 
 void Screen::Clear() {
     Z_.assign(Width_ * Height_, Z_INF);
+    Colors_.assign(Width_ * Height_, Color());
 }
 
 void Screen::SetPixel(int row, int col, double z, Color c) {

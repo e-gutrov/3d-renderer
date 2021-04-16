@@ -1,6 +1,3 @@
-//
-// Created by egor on 07.02.2021.
-//
 #include <iostream>
 #include <Core>
 #include "renderer.h"
@@ -11,16 +8,18 @@ using namespace Eigen;
 
 Renderer::Renderer(World* world): World_(world) {}
 
-Screen Renderer::Render(int w, int h, const Camera& camera) const {
-    Screen result(w, h);
+void Renderer::Render(const Camera& camera, Screen* screen) const {
+    screen->Clear();
+    int w = screen->GetWidth();
+    int h = screen->GetHeight();
+
     auto triangles = ToCameraSpace(camera);
     triangles = Clip(triangles, camera, (double)h / w);
     triangles = ToCube(triangles, camera, (double)h / w);
 
     for (const auto & triangle : triangles) {
-        DrawTriangle(triangle, &result);
+        DrawTriangle(triangle, screen);
     }
-    return result;
 }
 
 std::vector<Triangle4d> Renderer::ToCameraSpace(const Camera& camera) const {

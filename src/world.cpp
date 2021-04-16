@@ -1,7 +1,3 @@
-//
-// Created by egor on 07.02.2021.
-//
-
 #include "world.h"
 
 void World::AddObject(const Triangle4d& tr) {

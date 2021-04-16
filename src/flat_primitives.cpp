@@ -1,6 +1,3 @@
-//
-// Created by egor on 07.02.2021.
-//
 #include "flat_primitives.h"
 #include "screen.h"
 

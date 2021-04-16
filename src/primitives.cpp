@@ -1,8 +1,3 @@
-//
-// Created by egor on 07.02.2021.
-//
-
-#include <iostream>
 #include <Geometry>
 #include "primitives.h"
 
