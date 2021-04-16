@@ -2,9 +2,10 @@
 #define INC_3D_RENDERER_PRIMITIVES_H
 
 #include <Core>
+#include <SFML/Config.hpp>
 
 struct Color {
-    int r = 0, g = 0, b = 0, a = 255;
+    sf::Uint8 r = 0, g = 0, b = 0, a = 255;
 };
 
 struct Triangle4d {
