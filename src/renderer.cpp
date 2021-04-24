@@ -6,14 +6,12 @@
 
 using namespace Eigen;
 
-Renderer::Renderer(World* world): World_(world) {}
-
-void Renderer::Render(const Camera& camera, Screen* screen) const {
+void Renderer::Render(const World& world, const Camera& camera, Screen* screen) const {
     screen->Clear();
     int w = screen->GetWidth();
     int h = screen->GetHeight();
 
-    auto triangles = ToCameraSpace(camera);
+    auto triangles = ToCameraSpace(world, camera);
     triangles = Clip(triangles, camera, (double)h / w);
     triangles = ToCube(triangles, camera, (double)h / w);
 
@@ -22,8 +20,8 @@ void Renderer::Render(const Camera& camera, Screen* screen) const {
     }
 }
 
-std::vector<Triangle4d> Renderer::ToCameraSpace(const Camera& camera) const {
-    auto result = World_->GetObjects();
+std::vector<Triangle4d> Renderer::ToCameraSpace(const World& world, const Camera& camera) const {
+    auto result = world.GetObjects();
     auto trans = camera.GetMatrix();
     for (auto & triangle : result) {
         for (auto & pt : triangle.pts) {
