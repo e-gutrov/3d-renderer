@@ -4,7 +4,9 @@
 #include "primitives.h"
 #include "flat_primitives.h"
 
-using namespace Eigen;
+using Eigen::Vector3d;
+using Eigen::Vector4d;
+using Eigen::Matrix4d;
 
 void Renderer::Render(const World& world, const Camera& camera, Screen* screen) const {
     screen->Clear();
@@ -93,7 +95,7 @@ std::vector<Triangle4d> Renderer::ToCube(std::vector<Triangle4d>& triangles, con
 }
 
 void Renderer::DrawTriangle(const Triangle4d& triangle, Screen* screen) const {
-    Triangle2D screen_triangle(triangle, *screen);
+    Triangle2d screen_triangle(triangle, *screen);
     auto box = screen_triangle.BoundingBox();
 
     int w = screen->GetWidth();

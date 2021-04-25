@@ -1,7 +1,8 @@
 #include <Geometry>
 #include "primitives.h"
 
-using namespace Eigen;
+using Eigen::Vector3d;
+using Eigen::Vector4d;
 
 Triangle4d::Triangle4d(const Vector3d& a, const Vector3d& b, const Vector3d& c, Color col)
     : color(col) {
@@ -46,7 +47,7 @@ Plane::Plane(Triangle4d tr) {
     point = tr.pts[0].head(3);
 }
 
-Plane::Plane(Vector3d norm_, Vector3d point_) : norm(norm_), point(point_) {}
+Plane::Plane(const Vector3d& norm_, const Vector3d& point_) : norm(norm_), point(point_) {}
 
 double Plane::GetZ(double x, double y) const {
     double d = -norm.dot(point);

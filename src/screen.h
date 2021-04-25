@@ -10,11 +10,11 @@ class Screen {
 public:
     Screen(int width, int height);
     void Clear();
-    void SetPixel(int row, int col, double z, Color c);
+    void SetPixel(int row, int col, double z, const Color& c);
     int GetWidth() const;
     int GetHeight() const;
     const std::vector<Color>& GetColors() const;
-    Point2D GetCoors(double x, double y) const;
+    Point2d GetCoors(double x, double y) const;
 
 private:
     constexpr const static double Z_INF = 3000;

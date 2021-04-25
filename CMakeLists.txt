@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 include_directories(SFML)
 include_directories(Eigen)
 
-add_executable(3d_renderer main.cpp src/screen.h src/primitives.h src/screen.cpp src/renderer.h src/renderer.cpp src/world.h src/world.cpp src/camera.h src/camera.cpp src/primitives.cpp src/flat_primitives.h src/flat_primitives.cpp test.cpp)
+add_executable(3d_renderer src/screen.cpp src/renderer.cpp src/world.cpp src/camera.cpp src/primitives.cpp src/flat_primitives.cpp test.cpp)
 
 include_directories(SFML)
 
