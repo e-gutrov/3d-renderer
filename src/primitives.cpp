@@ -1,4 +1,4 @@
-#include <Geometry>
+#include <Eigen/Geometry>
 #include "primitives.h"
 
 namespace Renderer {

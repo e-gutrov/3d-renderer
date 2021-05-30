@@ -2,7 +2,7 @@
 #define INC_3D_RENDERER_SCREEN_H
 
 #include <vector>
-#include <Core>
+#include <Eigen/Core>
 #include "primitives.h"
 #include "flat_primitives.h"
 

@@ -1,7 +1,7 @@
 #ifndef INC_3D_RENDERER_PRIMITIVES_H
 #define INC_3D_RENDERER_PRIMITIVES_H
 
-#include <Core>
+#include <Eigen/Core>
 #include <SFML/Config.hpp>
 
 namespace Renderer {

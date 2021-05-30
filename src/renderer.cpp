@@ -1,5 +1,5 @@
 #include <iostream>
-#include <Core>
+#include <Eigen/Core>
 #include "renderer.h"
 #include "primitives.h"
 #include "flat_primitives.h"

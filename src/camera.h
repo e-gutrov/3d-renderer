@@ -1,6 +1,6 @@
 #ifndef INC_3D_RENDERER_CAMERA_H
 #define INC_3D_RENDERER_CAMERA_H
-#include <Core>
+#include <Eigen/Core>
 
 namespace Renderer {
     class Camera {

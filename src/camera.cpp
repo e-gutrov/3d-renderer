@@ -1,6 +1,6 @@
 #include "camera.h"
 
-#include <Geometry>
+#include <Eigen/Geometry>
 
 namespace Renderer {
     using Eigen::Vector3d;
