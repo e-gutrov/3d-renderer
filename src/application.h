@@ -5,38 +5,38 @@
 #ifndef INC_3D_RENDERER_APPLICATION_H
 #define INC_3D_RENDERER_APPLICATION_H
 
+#include <SFML/Graphics.hpp>
+#include "camera.h"
+#include "renderer.h"
 #include "screen.h"
 #include "world.h"
-#include "renderer.h"
-#include "camera.h"
-#include <SFML/Graphics.hpp>
 
 namespace Renderer {
-    class Application {
+class Application {
     public:
-        Application(int screenWidth, int screenHeight);
+    Application(int screenWidth, int screenHeight);
 
-        void Run();
+    void Run();
 
-        void AddObject(const Triangle4d &triangle);
+    void AddObject(const Triangle4d &triangle);
 
-        Camera &GetCamera();
+    Camera &GetCamera();
 
     private:
-        void Draw();
+    void Draw();
 
-        void ProcessEvent(const sf::Event &event);
+    void ProcessEvent(const sf::Event &event);
 
-        void ProcessKeyPressedEvent(const sf::Event::KeyEvent &keyEvent);
+    void ProcessKeyPressedEvent(const sf::Event::KeyEvent &keyEvent);
 
-        Screen Screen_;
-        World World_;
-        Renderer Renderer_;
-        Camera Camera_;
+    Screen Screen_;
+    World World_;
+    Renderer Renderer_;
+    Camera Camera_;
 
-        sf::RenderWindow Window_;
-        sf::Texture Texture_;
-        sf::Sprite Sprite_;
-    };
-}
-#endif //INC_3D_RENDERER_APPLICATION_H
+    sf::RenderWindow Window_;
+    sf::Texture Texture_;
+    sf::Sprite Sprite_;
+};
+}  // namespace Renderer
+#endif  // INC_3D_RENDERER_APPLICATION_H

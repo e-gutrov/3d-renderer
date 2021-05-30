@@ -5,15 +5,15 @@
 #include "primitives.h"
 
 namespace Renderer {
-    class World {
+class World {
     public:
-        void AddObject(const Triangle4d &tr);
+    void AddObject(const Triangle4d &tr);
 
-        const std::vector<Triangle4d> &GetObjects() const;
+    const std::vector<Triangle4d> &GetObjects() const;
 
     private:
-        std::vector<Triangle4d> Objects_;
-    };
-}
+    std::vector<Triangle4d> Objects_;
+};
+}  // namespace Renderer
 
-#endif //INC_3D_RENDERER_WORLD_H
+#endif  // INC_3D_RENDERER_WORLD_H
