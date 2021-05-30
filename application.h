@@ -16,6 +16,7 @@ public:
     Application(int screenWidth, int screenHeight);
     void Run();
     void AddObject(const Triangle4d& triangle);
+    Camera& GetCamera();
 
 private:
     void Draw();

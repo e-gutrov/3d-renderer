@@ -73,3 +73,7 @@ void Application::ProcessKeyPressedEvent(const sf::Event::KeyEvent& keyEvent) {
             break;
     }
 }
+
+Camera& Application::GetCamera() {
+    return Camera_;
+}
