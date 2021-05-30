@@ -4,12 +4,16 @@
 #include <vector>
 #include "primitives.h"
 
-class World {
-public:
-    void AddObject(const Triangle4d& tr);
-    const std::vector<Triangle4d>& GetObjects() const;
-private:
-    std::vector<Triangle4d> Objects_;
-};
+namespace Renderer {
+    class World {
+    public:
+        void AddObject(const Triangle4d &tr);
+
+        const std::vector<Triangle4d> &GetObjects() const;
+
+    private:
+        std::vector<Triangle4d> Objects_;
+    };
+}
 
 #endif //INC_3D_RENDERER_WORLD_H
