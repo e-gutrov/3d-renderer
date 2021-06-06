@@ -1,5 +1,7 @@
 #include "camera.h"
 
+#include <unordered_map>
+
 #include <Eigen/Geometry>
 
 namespace Renderer {
@@ -10,22 +12,39 @@ using Eigen::Vector3d;
 Camera::Camera(double E, double N)
     : E_(E), N_(N), Transform_(Matrix4d::Identity()) {}
 
-void Camera::Rotate(const Vector3d &rotation) {
+void Camera::Rotate(Rotation rotation, double angle) {
     using Eigen::AngleAxisd;
-
-    Eigen::Matrix3d rotationMatrix =
-        (AngleAxisd(rotation.z(), Vector3d(0, 0, 1)) *
-         AngleAxisd(rotation.y(), Vector3d(0, 1, 0)) *
-         AngleAxisd(rotation.x(), Vector3d(1, 0, 0)))
-            .matrix();
     Matrix4d trans = Matrix4d::Identity();
-    trans.block<3, 3>(0, 0) = rotationMatrix;
+    AngleAxisd angleAxis;
+    switch (rotation) {
+        case Rotation::Left:
+            angleAxis = AngleAxisd(-angle, Vector3d(0, 1, 0));
+            break;
+        case Rotation::Right:
+            angleAxis = AngleAxisd(angle, Vector3d(0, 1, 0));
+            break;
+        case Rotation::Down:
+            angleAxis = AngleAxisd(-angle, Vector3d(1, 0, 0));
+            break;
+        case Rotation::Up:
+            angleAxis = AngleAxisd(angle, Vector3d(1, 0, 0));
+            break;
+    }
+    trans.block<3, 3>(0, 0) = angleAxis.matrix();
     Transform_ = trans * Transform_;
 }
 
-void Camera::Shift(const Vector3d &shift) {
+void Camera::Shift(Direction direction, double speed) {
+    static const std::unordered_map<Direction, Eigen::Vector3d> directionToVector = {
+            {Direction::Left, {-1, 0, 0}},
+            {Direction::Right, {1, 0, 0}},
+            {Direction::Down, {0, -1, 0}},
+            {Direction::Up, {0, 1, 0}},
+            {Direction::Backward, {0, 0, 1}},
+            {Direction::Forward, {0, 0, -1}},
+    };
     Matrix4d trans = Matrix4d::Identity();
-    trans.block<3, 1>(0, 3) = -shift;
+    trans.block<3, 1>(0, 3) = -speed * directionToVector.at(direction);
     Transform_ = trans * Transform_;
 }
 
