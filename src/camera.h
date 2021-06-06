@@ -10,6 +10,8 @@ enum class Rotation {
     Right,
     Down,
     Up,
+    BarrelLeft,
+    BarrelRight,
 };
 class Camera {
     public:

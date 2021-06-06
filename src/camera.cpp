@@ -16,6 +16,7 @@ void Camera::Rotate(Rotation rotation, double angle) {
     using Eigen::AngleAxisd;
     static const Vector3d rotateLeftRightAxis(0, 1, 0);
     static const Vector3d rotateUpDownAxis(1, 0, 0);
+    static const Vector3d rotateBarrelAxis(0, 0, 1);
 
     Matrix4d trans = Matrix4d::Identity();
     AngleAxisd angleAxis;
@@ -32,6 +33,12 @@ void Camera::Rotate(Rotation rotation, double angle) {
         case Rotation::Up:
             angleAxis = AngleAxisd(angle, rotateUpDownAxis);
             break;
+        case Rotation::BarrelLeft:
+            angleAxis = AngleAxisd(angle, rotateBarrelAxis);
+            break;
+        case Rotation::BarrelRight:
+            angleAxis = AngleAxisd(-angle, rotateBarrelAxis);
+            break;
     }
     trans.block<3, 3>(0, 0) = angleAxis.matrix();
     transformMatrix_ = trans * transformMatrix_;
@@ -41,7 +48,7 @@ void Camera::Shift(Direction direction, double speed) {
     static const std::unordered_map<Direction, Eigen::Vector3d>
         directionToVector = {
             {Direction::Left, {-1, 0, 0}},    {Direction::Right, {1, 0, 0}},
-            {Direction::Down, {0, -1, 0}},    {Direction::Up, {0, 1, 0}},
+            {Direction::Up, {0, -1, 0}},    {Direction::Down, {0, 1, 0}},
             {Direction::Backward, {0, 0, 1}}, {Direction::Forward, {0, 0, -1}},
         };
     Matrix4d trans = Matrix4d::Identity();

@@ -67,6 +67,12 @@ void Application::ProcessKeyPressedEvent(const sf::Event::KeyEvent& keyEvent) {
         case sf::Keyboard::S:
             camera_.Shift(Direction::Backward, default_speed);
             break;
+        case sf::Keyboard::I:
+            camera_.Shift(Direction::Up, default_speed);
+            break;
+        case sf::Keyboard::K:
+            camera_.Shift(Direction::Down, default_speed);
+            break;
         case sf::Keyboard::Up:
             camera_.Rotate(Rotation::Up, default_angle);
             break;
@@ -78,6 +84,12 @@ void Application::ProcessKeyPressedEvent(const sf::Event::KeyEvent& keyEvent) {
             break;
         case sf::Keyboard::Right:
             camera_.Rotate(Rotation::Right, default_angle);
+            break;
+        case sf::Keyboard::J:
+            camera_.Rotate(Rotation::BarrelLeft, default_angle);
+            break;
+        case sf::Keyboard::L:
+            camera_.Rotate(Rotation::BarrelRight, default_angle);
             break;
     }
 }
