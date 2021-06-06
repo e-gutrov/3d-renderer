@@ -22,6 +22,19 @@ class Renderer {
                                    double) const;
 
     void DrawTriangle(const Triangle4d& triangle, Screen* screen) const;
+
+private:
+    using Polygon = std::vector<Eigen::Vector4d>;
+    static Eigen::Matrix4d MakeProjectionMatrix(const Camera& camera, double aspect_ratio);
+
+    static Polygon ClipWithPlanes(const std::vector<Plane>& planes, const Triangle4d& tr);
+    static void ClipWithPlane(const Plane& plane, const Polygon& cur, Polygon* result);
+
+    Plane GetNearPlane(const Camera& camera, double aspect_ratio) const;
+    Plane GetLeftPlane(const Camera& camera, double aspect_ratio) const;
+    Plane GetRightPlane(const Camera& camera, double aspect_ratio) const;
+    Plane GetBottomPlane(const Camera& camera, double aspect_ratio) const;
+    Plane GetTopPlane(const Camera& camera, double aspect_ratio) const;
 };
 }  // namespace Renderer
 #endif  // INC_3D_RENDERER_RENDERER_H

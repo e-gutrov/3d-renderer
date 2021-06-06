@@ -49,6 +49,8 @@ Plane::Plane(Triangle4d tr) {
     point = tr.pts[0].head(3);
 }
 
+Plane::Plane(const Vector3d& norm_): Plane(norm_, Eigen::Vector3d(0, 0, 0)) {}
+
 Plane::Plane(const Vector3d& norm_, const Vector3d& point_)
     : norm(norm_), point(point_) {}
 

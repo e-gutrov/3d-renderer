@@ -37,8 +37,8 @@ struct Line {
 struct Plane {
     Eigen::Vector3d norm, point;
 
-    explicit Plane(const Eigen::Vector3d& norm_,
-                   const Eigen::Vector3d& point_ = Eigen::Vector3d(0, 0, 0));
+    explicit Plane(const Eigen::Vector3d& norm_);
+    Plane(const Eigen::Vector3d& norm_, const Eigen::Vector3d& point_);
 
     explicit Plane(Triangle4d tr);
 
