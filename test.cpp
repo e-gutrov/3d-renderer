@@ -1,4 +1,5 @@
 #include "src/application.h"
+#include <iostream>
 
 void PrepareWorld(Renderer::Application* app) {
     app->AddObject(Renderer::Triangle4d(
@@ -30,9 +31,49 @@ void PrepareWorld(Renderer::Application* app) {
         Eigen::Vector4d(7, 2, -5, 1), {0, 200, 0, 255}));
 }
 
+void AddPyramid(Renderer::Application* app, double x, double z, double side) {
+    using Eigen::Vector3d;
+    using Renderer::Color;
+    assert(app);
+    double y = -1;
+
+    z *= -1;
+    auto middle = Vector3d(x + side / 2, y, z - side / 2);
+    app->AddObject({
+        Vector3d(x, 0, z),
+        middle,
+        Vector3d(x, 0, z - side),
+        Color(255, 0, 0, 255)});
+    app->AddObject({
+        Vector3d(x, 0, z),
+        middle,
+        Vector3d(x + side, 0, z),
+        Color(0, 255, 0, 255)});
+    app->AddObject({
+        Vector3d(x, 0, z - side),
+        middle,
+        Vector3d(x + side, 0, z - side),
+        Color(0, 0, 255, 255)});
+    app->AddObject({
+        Vector3d(x + side, 0, z),
+        middle,
+        Vector3d(x + side, 0, z - side),
+        Color(255, 255, 0, 255)});
+}
+
+void PrepareWorldWithManyTriangles(Renderer::Application* app, int rows, int cols) {
+    assert(app);
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            AddPyramid(app, j * 2, i * 2, 2);
+        }
+    }
+}
+
 int main() {
     Renderer::Application app(640, 480);
     PrepareWorld(&app);
+//    PrepareWorldWithManyTriangles(&app, 10, 10);
     app.Run();
     return 0;
 }

@@ -127,7 +127,7 @@ void Renderer::ClipWithPlane(const Plane& plane, const Polygon& cur,
         if (d0 >= 0) {
             result->emplace_back(p0);
         }
-        if ((d0 >= 0 && d1 < 0) || (d0 < 0 && d1 > 0)) {
+        if ((d0 > 0 && d1 < 0) || (d0 < 0 && d1 > 0)) {
             Vector4d pt;
             pt.w() = 1;
             pt.block<3, 1>(0, 0) = plane.Intersect(Line(p0, p1));
@@ -137,7 +137,7 @@ void Renderer::ClipWithPlane(const Plane& plane, const Polygon& cur,
 }
 
 Plane Renderer::GetNearPlane(const Camera& camera, double aspect_ratio) const {
-    return {Vector3d(0, 0, -1), Vector3d(0, 0, camera.GetN())};
+    return {Vector3d(0, 0, -1), Vector3d(0, 0, -0.1)};
 }
 
 Plane Renderer::GetLeftPlane(const Camera& camera, double aspect_ratio) const {
