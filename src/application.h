@@ -18,14 +18,14 @@ class Application {
                 double shiftSpeed = 0.1, double rotateSpeed = 0.05);
     void Run();
 
-    void AddObject(const Triangle4d &triangle);
+    void AddObject(const Triangle4d& triangle);
 
     private:
     void Draw();
 
-    void ProcessEvent(const sf::Event &event);
+    void ProcessEvent(const sf::Event& event);
 
-    void ProcessKeyPressedEvent(const sf::Event::KeyEvent &keyEvent);
+    void ProcessKeyPressedEvent(const sf::Event::KeyEvent& keyEvent);
 
     Screen screen_;
     World world_;

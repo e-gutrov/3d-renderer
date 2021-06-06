@@ -13,15 +13,15 @@ class Screen {
 
     void Clear();
 
-    void SetPixel(int row, int col, double z, const Color &c);
+    void SetPixel(int row, int col, double z, const Color& c);
 
     int GetWidth() const;
 
     int GetHeight() const;
 
-    const std::vector<Color> &GetColors() const;
+    const std::vector<Color>& GetColors() const;
 
-    Point2d GetCoors(double x, double y) const;
+    Point2d GetCoordinates(double x, double y) const;
 
     private:
     constexpr const static double kZInf = 3000;

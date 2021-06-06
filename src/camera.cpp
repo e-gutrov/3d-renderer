@@ -14,20 +14,23 @@ Camera::Camera(double E, double N)
 
 void Camera::Rotate(Rotation rotation, double angle) {
     using Eigen::AngleAxisd;
+    static const Vector3d rotateLeftRightAxis(0, 1, 0);
+    static const Vector3d rotateUpDownAxis(1, 0, 0);
+
     Matrix4d trans = Matrix4d::Identity();
     AngleAxisd angleAxis;
     switch (rotation) {
         case Rotation::Left:
-            angleAxis = AngleAxisd(-angle, Vector3d(0, 1, 0));
+            angleAxis = AngleAxisd(-angle, rotateLeftRightAxis);
             break;
         case Rotation::Right:
-            angleAxis = AngleAxisd(angle, Vector3d(0, 1, 0));
+            angleAxis = AngleAxisd(angle, rotateLeftRightAxis);
             break;
         case Rotation::Down:
-            angleAxis = AngleAxisd(-angle, Vector3d(1, 0, 0));
+            angleAxis = AngleAxisd(-angle, rotateUpDownAxis);
             break;
         case Rotation::Up:
-            angleAxis = AngleAxisd(angle, Vector3d(1, 0, 0));
+            angleAxis = AngleAxisd(angle, rotateUpDownAxis);
             break;
     }
     trans.block<3, 3>(0, 0) = angleAxis.matrix();

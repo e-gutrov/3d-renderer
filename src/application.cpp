@@ -35,11 +35,11 @@ void Application::Draw() {
     window_.display();
 }
 
-void Application::AddObject(const Triangle4d &triangle) {
+void Application::AddObject(const Triangle4d& triangle) {
     world_.AddObject(triangle);
 }
 
-void Application::ProcessEvent(const sf::Event &event) {
+void Application::ProcessEvent(const sf::Event& event) {
     switch (event.type) {
         case sf::Event::Closed:
             window_.close();
@@ -50,7 +50,7 @@ void Application::ProcessEvent(const sf::Event &event) {
     }
 }
 
-void Application::ProcessKeyPressedEvent(const sf::Event::KeyEvent &keyEvent) {
+void Application::ProcessKeyPressedEvent(const sf::Event::KeyEvent& keyEvent) {
     static constexpr const double default_speed = 0.1;
     static constexpr const double default_angle = 0.05;
 

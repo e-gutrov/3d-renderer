@@ -9,7 +9,7 @@ class World {
     public:
     void AddObject(const Triangle4d &tr);
 
-    const std::vector<Triangle4d> &GetObjects() const;
+    const std::vector<Triangle4d>& GetObjects() const;
 
     private:
     std::vector<Triangle4d> objects_;

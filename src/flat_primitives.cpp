@@ -2,28 +2,28 @@
 #include "screen.h"
 
 namespace Renderer {
-Vector2d::Vector2d(const Point2d &a, const Point2d &b)
+Vector2d::Vector2d(const Point2d& a, const Point2d& b)
     : x(b.x - a.x), y(b.y - a.y) {}
 
-int Vector2d::CrossProduct(const Vector2d &other) const {
+int Vector2d::CrossProduct(const Vector2d& other) const {
     return x * other.y - other.x * y;
 }
 
-Triangle2d::Triangle2d(const Point2d &a, const Point2d &b, const Point2d &c) {
+Triangle2d::Triangle2d(const Point2d& a, const Point2d& b, const Point2d& c) {
     pts[0] = a;
     pts[1] = b;
     pts[2] = c;
 }
 
-Triangle2d::Triangle2d(const Triangle4d &triangle, const Screen &screen) {
+Triangle2d::Triangle2d(const Triangle4d& triangle, const Screen& screen) {
     for (int i = 0; i < 3; ++i) {
         pts[i] =
-            Point2d(screen.GetCoors(triangle.pts[i].x() / triangle.pts[i].w(),
-                                    triangle.pts[i].y() / triangle.pts[i].w()));
+            Point2d(screen.GetCoordinates(triangle.pts[i].x() / triangle.pts[i].w(),
+                                          triangle.pts[i].y() / triangle.pts[i].w()));
     }
 }
 
-bool Triangle2d::TestPixel(const Point2d &pixel) const {
+bool Triangle2d::TestPixel(const Point2d& pixel) const {
     int sum = 0;
     int sum1 = 0;
     for (int i = 0; i < 3; ++i) {

@@ -9,8 +9,8 @@ using Eigen::Matrix4d;
 using Eigen::Vector3d;
 using Eigen::Vector4d;
 
-void Renderer::Render(const World &world, const Camera &camera,
-                      Screen *screen) const {
+void Renderer::Render(const World& world, const Camera& camera,
+                      Screen* screen) const {
     screen->Clear();
     int w = screen->GetWidth();
     int h = screen->GetHeight();
@@ -24,8 +24,8 @@ void Renderer::Render(const World &world, const Camera &camera,
     }
 }
 
-std::vector<Triangle4d> Renderer::ToCameraSpace(const World &world,
-                                                const Camera &camera) const {
+std::vector<Triangle4d> Renderer::ToCameraSpace(const World& world,
+                                                const Camera& camera) const {
     auto result = world.GetObjects();
     auto trans = camera.GetMatrix();
     for (auto &triangle : result) {
@@ -36,8 +36,8 @@ std::vector<Triangle4d> Renderer::ToCameraSpace(const World &world,
     return result;
 }
 
-std::vector<Triangle4d> Renderer::Clip(const std::vector<Triangle4d> &triangles,
-                                       const Camera &camera,
+std::vector<Triangle4d> Renderer::Clip(const std::vector<Triangle4d>& triangles,
+                                       const Camera& camera,
                                        double aspect_ratio) const {
     std::vector<Triangle4d> result;
     double n = camera.GetN(), e = camera.GetE();
@@ -59,8 +59,8 @@ std::vector<Triangle4d> Renderer::Clip(const std::vector<Triangle4d> &triangles,
         for (const auto &plane : planes) {
             for (int i = 0; i < cur.size(); ++i) {
                 const auto &p0 = cur[i], p1 = cur[(i + 1) % cur.size()];
-                double d0 = plane.Dist((p0 / p0.w()).head(3));
-                double d1 = plane.Dist((p1 / p1.w()).head(3));
+                double d0 = plane.CountDistance((p0 / p0.w()).head(3));
+                double d1 = plane.CountDistance((p1 / p1.w()).head(3));
 
                 if (d0 >= 0) {
                     next.emplace_back(p0);
@@ -82,8 +82,8 @@ std::vector<Triangle4d> Renderer::Clip(const std::vector<Triangle4d> &triangles,
     return result;
 }
 
-std::vector<Triangle4d> Renderer::ToCube(std::vector<Triangle4d> &triangles,
-                                         const Camera &camera,
+std::vector<Triangle4d> Renderer::ToCube(std::vector<Triangle4d>& triangles,
+                                         const Camera& camera,
                                          double aspect_ratio) const {
     double n = camera.GetN(), e = camera.GetN();
     double l = -n / e, r = n / e;
@@ -99,7 +99,7 @@ std::vector<Triangle4d> Renderer::ToCube(std::vector<Triangle4d> &triangles,
     return triangles;
 }
 
-void Renderer::DrawTriangle(const Triangle4d &triangle, Screen *screen) const {
+void Renderer::DrawTriangle(const Triangle4d& triangle, Screen* screen) const {
     Triangle2d screen_triangle(triangle, *screen);
     auto box = screen_triangle.BoundingBox();
 
