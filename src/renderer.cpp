@@ -8,9 +8,11 @@ namespace Renderer {
 using Eigen::Matrix4d;
 using Eigen::Vector3d;
 using Eigen::Vector4d;
-
+// TODO: check all
 void Renderer::Render(const World& world, const Camera& camera,
                       Screen* screen) const {
+    assert(screen);
+
     screen->Clear();
     int w = screen->GetWidth();
     int h = screen->GetHeight();
@@ -100,6 +102,7 @@ std::vector<Triangle4d> Renderer::ToCube(std::vector<Triangle4d>& triangles,
 }
 
 void Renderer::DrawTriangle(const Triangle4d& triangle, Screen* screen) const {
+    assert(screen);
     Triangle2d screen_triangle(triangle, *screen);
     auto box = screen_triangle.BoundingBox();
 

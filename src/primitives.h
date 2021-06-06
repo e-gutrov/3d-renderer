@@ -6,7 +6,9 @@
 
 namespace Renderer {
 struct Color {
-    sf::Uint8 r = 0, g = 0, b = 0, a = 255;
+    sf::Uint8 r, g, b, a;
+    Color(int r, int g, int b, int a) : r(r), g(g), b(b), a(a) {}
+    static const Color Black;
 };
 
 struct Triangle4d {
@@ -14,10 +16,10 @@ struct Triangle4d {
     Color color;
 
     Triangle4d(const Eigen::Vector3d& a, const Eigen::Vector3d& b,
-               const Eigen::Vector3d& c, Color col = Color());
+               const Eigen::Vector3d& c, Color col);
 
     Triangle4d(const Eigen::Vector4d& a, const Eigen::Vector4d& b,
-               const Eigen::Vector4d& c, Color col = Color());
+               const Eigen::Vector4d& c, Color col);
 
     Eigen::Vector3d GetNorm() const;
 };

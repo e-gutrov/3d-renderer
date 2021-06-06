@@ -4,12 +4,12 @@ namespace Renderer {
 Screen::Screen(int width, int height)
     : width_(width)
     , height_(height)
-    , colors_(width_ * height_)
+    , colors_(width_ * height_, Color::Black)
     , z_(width_ * height_, kZInf) {}
 
 void Screen::Clear() {
     z_.assign(width_ * height_, kZInf);
-    colors_.assign(width_ * height_, Color());
+    colors_.assign(width_ * height_, Color::Black);
 }
 
 void Screen::SetPixel(int row, int col, double z, const Color &c) {

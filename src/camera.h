@@ -19,14 +19,14 @@ class Camera {
 
     void Shift(Direction direction, double speed);
 
-    Eigen::Matrix4d GetMatrix() const;
+    Eigen::Matrix4d GetMatrix() const; // TODO: return const reference
 
     double GetE() const;
 
     double GetN() const;
 
     private:
-    double E_, N_;
+    double E_, N_; // TODO
     Eigen::Matrix4d transformMatrix_;
 };
 }  // namespace Renderer

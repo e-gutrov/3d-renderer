@@ -5,6 +5,8 @@ namespace Renderer {
 using Eigen::Vector3d;
 using Eigen::Vector4d;
 
+const Color Color::Black = Color(0, 0, 0, 255);
+
 Triangle4d::Triangle4d(const Vector3d& a, const Vector3d& b, const Vector3d& c,
                        Color col)
     : color(col) {
