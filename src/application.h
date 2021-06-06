@@ -14,7 +14,8 @@
 namespace Renderer {
 class Application {
     public:
-    Application(int screenWidth, int screenHeight, Camera camera = Camera(), double shiftSpeed = 0.1, double rotateSpeed = 0.05);
+    Application(int screenWidth, int screenHeight, Camera camera = Camera(),
+                double shiftSpeed = 0.1, double rotateSpeed = 0.05);
     void Run();
 
     void AddObject(const Triangle4d &triangle);
@@ -26,14 +27,14 @@ class Application {
 
     void ProcessKeyPressedEvent(const sf::Event::KeyEvent &keyEvent);
 
-    Screen Screen_;
-    World World_;
-    Renderer Renderer_;
-    Camera Camera_;
+    Screen screen_;
+    World world_;
+    Renderer renderer_;
+    Camera camera_;
 
-    sf::RenderWindow Window_;
-    sf::Texture Texture_;
-    sf::Sprite Sprite_;
+    sf::RenderWindow window_;
+    sf::Texture texture_;
+    sf::Sprite sprite_;
 
     double shiftSpeed_;
     double rotateSpeed_;

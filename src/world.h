@@ -12,7 +12,7 @@ class World {
     const std::vector<Triangle4d> &GetObjects() const;
 
     private:
-    std::vector<Triangle4d> Objects_;
+    std::vector<Triangle4d> objects_;
 };
 }  // namespace Renderer
 

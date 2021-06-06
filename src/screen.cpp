@@ -2,32 +2,32 @@
 
 namespace Renderer {
 Screen::Screen(int width, int height)
-    : Width_(width)
-    , Height_(height)
-    , Colors_(Width_ * Height_)
-    , Z_(Width_ * Height_, Z_INF) {}
+    : width_(width)
+    , height_(height)
+    , colors_(width_ * height_)
+    , z_(width_ * height_, kZInf) {}
 
 void Screen::Clear() {
-    Z_.assign(Width_ * Height_, Z_INF);
-    Colors_.assign(Width_ * Height_, Color());
+    z_.assign(width_ * height_, kZInf);
+    colors_.assign(width_ * height_, Color());
 }
 
 void Screen::SetPixel(int row, int col, double z, const Color &c) {
-    int pos = row * Width_ + col;
-    if (Z_[pos] > z) {
-        Colors_[pos] = c;
-        Z_[pos] = z;
+    int pos = row * width_ + col;
+    if (z_[pos] > z) {
+        colors_[pos] = c;
+        z_[pos] = z;
     }
 }
 
-int Screen::GetWidth() const { return Width_; }
+int Screen::GetWidth() const { return width_; }
 
-int Screen::GetHeight() const { return Height_; }
+int Screen::GetHeight() const { return height_; }
 
-const std::vector<Color> &Screen::GetColors() const { return Colors_; }
+const std::vector<Color> &Screen::GetColors() const { return colors_; }
 
 Point2d Screen::GetCoors(double x, double y) const {
-    return {static_cast<int>(round((x + 1) / 2 * Width_)),
-            static_cast<int>(round((y + 1) / 2 * Height_))};
+    return {static_cast<int>(round((x + 1) / 2 * width_)),
+            static_cast<int>(round((y + 1) / 2 * height_))};
 }
 }  // namespace Renderer

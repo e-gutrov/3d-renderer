@@ -3,13 +3,14 @@
 #include <Eigen/Core>
 
 namespace Renderer {
-    enum class Direction {
-        Left, Right, Down, Up, Backward, Forward
-    };
+enum class Direction { Left, Right, Down, Up, Backward, Forward };
 
-    enum class Rotation {
-        Left, Right, Down, Up,
-    };
+enum class Rotation {
+    Left,
+    Right,
+    Down,
+    Up,
+};
 class Camera {
     public:
     explicit Camera(double E = 1, double N = 1);
@@ -26,7 +27,7 @@ class Camera {
 
     private:
     double E_, N_;
-    Eigen::Matrix4d Transform_;
+    Eigen::Matrix4d transformMatrix_;
 };
 }  // namespace Renderer
 #endif  // INC_3D_RENDERER_CAMERA_H
