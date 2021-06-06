@@ -2,13 +2,17 @@
 // Created by egor on 25.04.2021.
 //
 #include <iostream>
+#include <utility>
 
 #include "application.h"
 
 namespace Renderer {
-Application::Application(int screenWidth, int screenHeight)
-    : Screen_(screenWidth, screenHeight)
-    , Window_(sf::VideoMode(screenWidth, screenHeight), "Test" /* TODO */) {
+Application::Application(int screenWidth, int screenHeight, Camera camera, double shiftSpeed, double rotateSpeed)
+        : Screen_(screenWidth, screenHeight)
+        , Camera_(std::move(camera))
+        , Window_(sf::VideoMode(screenWidth, screenHeight), "Renderer")
+        , shiftSpeed_(shiftSpeed)
+        , rotateSpeed_(rotateSpeed) {
     Texture_.create(screenWidth, screenHeight);
     Sprite_.setTexture(Texture_);
 }
@@ -76,6 +80,4 @@ void Application::ProcessKeyPressedEvent(const sf::Event::KeyEvent &keyEvent) {
             break;
     }
 }
-
-Camera &Application::GetCamera() { return Camera_; }
 }  // namespace Renderer

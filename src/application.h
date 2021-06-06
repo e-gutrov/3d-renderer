@@ -14,13 +14,10 @@
 namespace Renderer {
 class Application {
     public:
-    Application(int screenWidth, int screenHeight);
-
+    Application(int screenWidth, int screenHeight, Camera camera = Camera(), double shiftSpeed = 0.1, double rotateSpeed = 0.05);
     void Run();
 
     void AddObject(const Triangle4d &triangle);
-
-    Camera &GetCamera();
 
     private:
     void Draw();
@@ -37,6 +34,9 @@ class Application {
     sf::RenderWindow Window_;
     sf::Texture Texture_;
     sf::Sprite Sprite_;
+
+    double shiftSpeed_;
+    double rotateSpeed_;
 };
 }  // namespace Renderer
 #endif  // INC_3D_RENDERER_APPLICATION_H
