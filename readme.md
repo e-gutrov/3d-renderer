@@ -1,4 +1,4 @@
-#3D Renderer from scratch
+# 3D Renderer from scratch
 
 ### Установка
 
@@ -25,3 +25,8 @@ cmake --build .
 Туман войны.
 
 ### Примеры работы
+![cube](./samples/cube.png)
+
+![teapot](./samples/teapot.png)
+
+![many_triangles](./samples/many_triangles.png)
