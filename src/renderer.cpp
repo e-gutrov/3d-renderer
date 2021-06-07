@@ -20,6 +20,7 @@ void Renderer::Render(const World& world, const Camera& camera,
     auto triangles = ToCameraSpace(world, camera);
     triangles = Clip(triangles, camera, (double)h / w);
     triangles = ToCube(triangles, camera, (double)h / w);
+    std::cerr << "Started drawing" << std::endl;
 
     for (const auto& triangle : triangles) {
         DrawTriangle(triangle, screen);
@@ -93,7 +94,7 @@ void Renderer::DrawTriangle(const Triangle4d& triangle, Screen* screen) const {
 }
 
 Matrix4d Renderer::MakeProjectionMatrix(const Camera& camera, double aspect_ratio) {
-    double n = camera.GetN(), e = camera.GetN();
+    double n = camera.GetNearPlaneDistance(), e = camera.GetNearPlaneDistance();
     double l = -n / e, r = n / e;
     double b = -aspect_ratio * n / e, t = aspect_ratio * n / e;
     Matrix4d trans;
@@ -141,26 +142,26 @@ Plane Renderer::GetNearPlane(const Camera& camera, double aspect_ratio) const {
 }
 
 Plane Renderer::GetLeftPlane(const Camera& camera, double aspect_ratio) const {
-    double e = camera.GetE();
+    double e = camera.getFocalLength();
     double coef = sqrt(e * e + 1);
     return Plane(Vector3d(e / coef, 0, -1 / coef));
 }
 
 Plane Renderer::GetRightPlane(const Camera& camera, double aspect_ratio) const {
-    double e = camera.GetE();
+    double e = camera.getFocalLength();
     double coef = sqrt(e * e + 1);
     return Plane(Vector3d(-e / coef, 0, -1 / coef));
 }
 
 Plane Renderer::GetBottomPlane(const Camera& camera,
                                double aspect_ratio) const {
-    double e = camera.GetE();
+    double e = camera.getFocalLength();
     double coef = sqrt(e * e + aspect_ratio * aspect_ratio);
     return Plane(Vector3d(0, e / coef, -aspect_ratio / coef));
 }
 
 Plane Renderer::GetTopPlane(const Camera& camera, double aspect_ratio) const {
-    double e = camera.GetE();
+    double e = camera.getFocalLength();
     double coef = sqrt(e * e + aspect_ratio * aspect_ratio);
     return Plane(Vector3d(0, -e / coef, -aspect_ratio / coef));
 }

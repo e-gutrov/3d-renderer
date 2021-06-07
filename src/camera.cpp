@@ -9,8 +9,10 @@ using Eigen::Matrix3d;
 using Eigen::Matrix4d;
 using Eigen::Vector3d;
 
-Camera::Camera(double E, double N)
-    : E_(E), N_(N), transformMatrix_(Matrix4d::Identity()) {}
+Camera::Camera(double nearPlaneDistance, double horizontalFov)
+    : focalLength_(1 / tan(horizontalFov / 2))
+    , nearPlaneDistance_(nearPlaneDistance)
+    , transformMatrix_(Matrix4d::Identity()) {}
 
 void Camera::Rotate(Rotation rotation, double angle) {
     using Eigen::AngleAxisd;
@@ -58,7 +60,7 @@ void Camera::Shift(Direction direction, double speed) {
 
 Matrix4d Camera::GetMatrix() const { return transformMatrix_; }
 
-double Camera::GetE() const { return E_; }
+double Camera::getFocalLength() const { return focalLength_; }
 
-double Camera::GetN() const { return N_; }
+double Camera::GetNearPlaneDistance() const { return nearPlaneDistance_; }
 }  // namespace Renderer

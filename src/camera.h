@@ -15,7 +15,9 @@ enum class Rotation {
 };
 class Camera {
     public:
-    explicit Camera(double E = 1, double N = 1);
+    Camera() = default;
+
+    Camera(double nearPlaneDistance, double horizontalFov);
 
     void Rotate(Rotation rotation, double angle);
 
@@ -23,12 +25,12 @@ class Camera {
 
     Eigen::Matrix4d GetMatrix() const; // TODO: return const reference
 
-    double GetE() const;
+    double getFocalLength() const;
 
-    double GetN() const;
+    double GetNearPlaneDistance() const;
 
     private:
-    double E_, N_; // TODO
+    double focalLength_ = 1, nearPlaneDistance_ = 1;
     Eigen::Matrix4d transformMatrix_;
 };
 }  // namespace Renderer
