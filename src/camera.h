@@ -25,7 +25,7 @@ class Camera {
 
     Eigen::Matrix4d GetMatrix() const; // TODO: return const reference
 
-    double getFocalLength() const;
+    double GetFocalLength() const;
 
     double GetNearPlaneDistance() const;
 

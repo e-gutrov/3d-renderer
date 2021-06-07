@@ -60,7 +60,7 @@ void Camera::Shift(Direction direction, double speed) {
 
 Matrix4d Camera::GetMatrix() const { return transformMatrix_; }
 
-double Camera::getFocalLength() const { return focalLength_; }
+double Camera::GetFocalLength() const { return focalLength_; }
 
 double Camera::GetNearPlaneDistance() const { return nearPlaneDistance_; }
 }  // namespace Renderer

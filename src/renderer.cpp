@@ -94,12 +94,10 @@ void Renderer::DrawTriangle(const Triangle4d& triangle, Screen* screen) const {
 }
 
 Matrix4d Renderer::MakeProjectionMatrix(const Camera& camera, double aspect_ratio) {
-    double n = camera.GetNearPlaneDistance(), e = camera.GetNearPlaneDistance();
-    double l = -n / e, r = n / e;
-    double b = -aspect_ratio * n / e, t = aspect_ratio * n / e;
+    double n = camera.GetNearPlaneDistance(), e = camera.GetFocalLength();
     Matrix4d trans;
-    trans << 2 * n / (r - l), 0, (r + l) / (r - l), 0,
-            0, 2 * n / (t - b), (t + b) / (t - b), 0,
+    trans << e, 0, 0, 0,
+            0, e / aspect_ratio, 0, 0,
             0, 0, -1, -2 * n,
             0, 0, -1, 0;
     return trans;
@@ -138,30 +136,30 @@ void Renderer::ClipWithPlane(const Plane& plane, const Polygon& cur,
 }
 
 Plane Renderer::GetNearPlane(const Camera& camera, double aspect_ratio) const {
-    return {Vector3d(0, 0, -1), Vector3d(0, 0, -0.1)};
+    return {Vector3d(0, 0, -1), Vector3d(0, 0, -camera.GetNearPlaneDistance())};
 }
 
 Plane Renderer::GetLeftPlane(const Camera& camera, double aspect_ratio) const {
-    double e = camera.getFocalLength();
+    double e = camera.GetFocalLength();
     double coef = sqrt(e * e + 1);
     return Plane(Vector3d(e / coef, 0, -1 / coef));
 }
 
 Plane Renderer::GetRightPlane(const Camera& camera, double aspect_ratio) const {
-    double e = camera.getFocalLength();
+    double e = camera.GetFocalLength();
     double coef = sqrt(e * e + 1);
     return Plane(Vector3d(-e / coef, 0, -1 / coef));
 }
 
 Plane Renderer::GetBottomPlane(const Camera& camera,
                                double aspect_ratio) const {
-    double e = camera.getFocalLength();
+    double e = camera.GetFocalLength();
     double coef = sqrt(e * e + aspect_ratio * aspect_ratio);
     return Plane(Vector3d(0, e / coef, -aspect_ratio / coef));
 }
 
 Plane Renderer::GetTopPlane(const Camera& camera, double aspect_ratio) const {
-    double e = camera.getFocalLength();
+    double e = camera.GetFocalLength();
     double coef = sqrt(e * e + aspect_ratio * aspect_ratio);
     return Plane(Vector3d(0, -e / coef, -aspect_ratio / coef));
 }

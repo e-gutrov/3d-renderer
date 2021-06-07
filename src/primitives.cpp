@@ -52,7 +52,7 @@ Plane::Plane(Triangle4d tr) {
 Plane::Plane(const Vector3d& norm_): Plane(norm_, Eigen::Vector3d(0, 0, 0)) {}
 
 Plane::Plane(const Vector3d& norm_, const Vector3d& point_)
-    : norm(norm_), point(point_) {}
+    : norm(norm_.normalized()), point(point_) {}
 
 double Plane::GetZ(double x, double y) const {
     double d = -norm.dot(point);
