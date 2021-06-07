@@ -30,7 +30,7 @@ void Renderer::Render(const World& world, const Camera& camera,
 std::vector<Triangle4d> Renderer::ToCameraSpace(const World& world,
                                                 const Camera& camera) const {
     auto result = world.GetObjects();
-    auto trans = camera.GetMatrix();
+    const auto& trans = camera.GetMatrix();
     for (auto& triangle : result) {
         for (auto& pt : triangle.pts) {
             pt = trans * pt;

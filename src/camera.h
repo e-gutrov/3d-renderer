@@ -23,7 +23,7 @@ class Camera {
 
     void Shift(Direction direction, double speed);
 
-    Eigen::Matrix4d GetMatrix() const; // TODO: return const reference
+    const Eigen::Matrix4d& GetMatrix() const;
 
     double GetFocalLength() const;
 
