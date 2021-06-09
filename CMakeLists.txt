@@ -1,16 +1,12 @@
 cmake_minimum_required(VERSION 3.10)
-project(3d_renderer)
+project(CourseProject LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
-
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-include_directories(SFML)
-include_directories(eigen)
+add_subdirectory(include/Eigen)
+add_subdirectory(include/renderer)
 
-add_executable(3d_renderer src/screen.cpp src/renderer.cpp src/world.cpp src/camera.cpp src/primitives.cpp src/flat_primitives.cpp test.cpp src/application.cpp)
-
-include_directories(SFML)
-include_directories(eigen)
-
-target_link_libraries(3d_renderer sfml-graphics sfml-window sfml-system)
+add_executable(${PROJECT_NAME} test.cpp)
+target_include_directories(${PROJECT_NAME} PUBLIC include/Eigen include)
+target_link_libraries(${PROJECT_NAME} PUBLIC renderer)

@@ -1,5 +1,7 @@
-#include "src/application.h"
+#include "obj_parser.cpp"
 #include <iostream>
+#include <Eigen/Core>
+#include <renderer/application.h>
 
 void PrepareWorld(Renderer::Application* app) {
     app->AddObject(Renderer::Triangle4d(
@@ -70,10 +72,20 @@ void PrepareWorldWithManyTriangles(Renderer::Application* app, int rows, int col
     }
 }
 
+void PrepareWorldFromOff(Renderer::Application* app, const std::string& filename) {
+    auto triangles = ParseOff(filename);
+    std::cerr << triangles.size() << std::endl;
+
+    for (const auto& tr : triangles) {
+        app->AddObject(tr);
+    }
+}
+
 int main() {
-    Renderer::Application app(640, 480);
-    PrepareWorld(&app);
+    Renderer::Application app(640, 480, Renderer::Camera(0.01, 1.07), 0.01, 0.01);
+//    PrepareWorld(&app);
 //    PrepareWorldWithManyTriangles(&app, 10, 10);
+    PrepareWorldFromOff(&app, "../teapot.off");
     app.Run();
     return 0;
 }
