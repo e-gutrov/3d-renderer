@@ -7,8 +7,18 @@
 #include "world.h"
 
 namespace Renderer {
+/**
+ * @brief Main class, renders the scene
+ */
 class Renderer {
     public:
+    /**
+     * @brief Renders the scene and returns it in screen
+     * 
+     * @param world World (scene) to be rendered
+     * @param camera Rendering will be done from camera's POV 
+     * @param screen Resulting image will be written here
+     */
     void Render(const World& world, const Camera& camera, Screen* screen) const;
 
     private:

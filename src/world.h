@@ -5,10 +5,23 @@
 #include "primitives.h"
 
 namespace Renderer {
+
+/**
+ * @brief Represents 3D scene and stores objects
+ * 
+ */
 class World {
     public:
+   	/**
+   	 * @brief Adds triangle to world
+   	 * 
+   	 * @param tr Triangle to add
+   	 */
     void AddObject(const Triangle4d &tr);
 
+    /**
+     * @brief Returns all triangles added to this world
+     */
     const std::vector<Triangle4d>& GetObjects() const;
 
     private:

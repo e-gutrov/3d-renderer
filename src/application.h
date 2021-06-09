@@ -14,10 +14,28 @@
 namespace Renderer {
 class Application {
     public:
+    /**
+     * @brief Constructs application
+     * 
+     * @param screenWidth Width of screen in pixels
+     * @param screenHeight Height of screen in pixels
+     * @param camera
+     * @param shiftSpeed Speed that will be passed to camera's Shift() method
+     * @param rotateSpeed Angle that will be passed to camera's Rotate() method
+     */
     Application(int screenWidth, int screenHeight, Camera camera = Camera(),
                 double shiftSpeed = 0.1, double rotateSpeed = 0.05);
+
+    /**
+     * @brief Launch application and listen for keyboard input
+     */
     void Run();
 
+    /**
+     * @brief Add triangle to application's world
+     * 
+     * @param triangle Triangle to add
+     */
     void AddObject(const Triangle4d& triangle);
 
     private:
