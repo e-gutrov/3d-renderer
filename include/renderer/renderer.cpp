@@ -1,6 +1,5 @@
 #include "renderer.h"
 #include <Eigen/Core>
-#include <iostream>
 #include "flat_primitives.h"
 #include "primitives.h"
 
@@ -20,7 +19,6 @@ void Renderer::Render(const World& world, const Camera& camera,
     auto triangles = ToCameraSpace(world, camera);
     triangles = Clip(triangles, camera, (double)h / w);
     triangles = ToCube(triangles, camera, (double)h / w);
-    std::cerr << "Started drawing" << std::endl;
 
     for (const auto& triangle : triangles) {
         DrawTriangle(triangle, screen);

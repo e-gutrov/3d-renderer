@@ -1,7 +1,6 @@
 //
 // Created by egor on 25.04.2021.
 //
-#include <iostream>
 #include <utility>
 
 #include "application.h"
