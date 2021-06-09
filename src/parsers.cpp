@@ -1,10 +1,7 @@
 //
 // Created by egor on 25.04.2021.
 //
-#include <vector>
-#include <fstream>
-#include <iostream>
-#include <renderer/primitives.h>
+#include "parsers.h"
 
 using Renderer::Triangle4d;
 
@@ -39,8 +36,7 @@ std::vector<Triangle4d> ParseObj(const std::string& filename) {
                 Triangle4d tr(vs[idxs[0]],
                               vs[idxs[i]],
                               vs[idxs[i + 1]],
-//                              {(sf::Uint8)(std::rand() % 256), (sf::Uint8)(std::rand() % 256), (sf::Uint8)(std::rand() % 256), 255});
-                              {200, 200, 200, 255});
+                              {(sf::Uint8)(std::rand() % 256), (sf::Uint8)(std::rand() % 256), (sf::Uint8)(std::rand() % 256), 255});
                 result.emplace_back(tr);
             }
         }

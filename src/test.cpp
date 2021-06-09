@@ -1,4 +1,4 @@
-#include "obj_parser.cpp"
+#include "parsers.h"
 #include <iostream>
 #include <Eigen/Core>
 #include <renderer/application.h>

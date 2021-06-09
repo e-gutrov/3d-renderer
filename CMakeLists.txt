@@ -7,6 +7,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_subdirectory(include/Eigen)
 add_subdirectory(include/renderer)
 
-add_executable(${PROJECT_NAME} test.cpp)
+add_executable(${PROJECT_NAME} src/test.cpp src/parsers.cpp)
 target_include_directories(${PROJECT_NAME} PUBLIC include/Eigen include)
 target_link_libraries(${PROJECT_NAME} PUBLIC renderer)
